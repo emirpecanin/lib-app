@@ -1,0 +1,78 @@
+   {{!-- NAVBAR --}}
+<BsNavbar 
+    @type="dark"
+    @backgroundColor="dark"
+    as |navbar|>
+    <div class="container">
+      <div class="navbar-header">
+        <navbar.toggle />
+        <LinkTo class="navbar-brand" @route="index">Library App</LinkTo>
+      </div>
+      <navbar.content>
+        <navbar.nav 
+          class="w-100"
+          as |nav|>
+          <div class="d-flex flex-column flex-lg-row ">
+            <nav.item>
+              <nav.linkTo @route="index">Home</nav.linkTo>
+            </nav.item>
+            
+            <nav.item>
+              <nav.linkTo @route="libraries">Libraries</nav.linkTo>
+            </nav.item>
+
+            <nav.item>
+              <nav.linkTo @route="authors">Authors</nav.linkTo>
+            </nav.item>
+
+            <nav.item>
+              <nav.linkTo @route="books">Books</nav.linkTo>
+            </nav.item>
+
+          </div>
+          <div class="d-flex flex-column flex-lg-row ml-lg-auto ">
+            <nav.item>
+              <nav.linkTo @route="about">About</nav.linkTo>
+            </nav.item>
+            
+            <nav.item>
+              <nav.linkTo @route="contact">Contact</nav.linkTo>
+            </nav.item>
+            
+            <BsDropdown
+              as |dd|>
+
+              <dd.button>
+                Admin
+                <span class="caret"></span>
+              </dd.button>
+              
+              <dd.menu 
+              class="w-100"
+              as |menu|>
+                <menu.item>
+                  <menu.link-to @route="admin.invitations">Invitations</menu.link-to>
+                </menu.item>
+                <menu.item>
+                  <menu.link-to @route="admin.contacts">Contacts</menu.link-to>
+                </menu.item>
+                <menu.item>
+                  <menu.link-to @route="admin.seeder">Seeder</menu.link-to>
+                </menu.item>
+                
+              </dd.menu>
+            </BsDropdown>
+          </div>
+
+        </navbar.nav>
+
+
+      </navbar.content>
+    </div>
+  </BsNavbar>
+<div class="container">
+
+  {{outlet}}
+
+</div>
+

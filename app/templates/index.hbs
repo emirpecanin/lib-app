@@ -1,0 +1,28 @@
+<div class="jumbotron text-center mt-4">
+    <h1 class="display-4">{{this.title}}</h1>
+    <br/><br/>
+
+    <p>Don't miss out launch date, input your email below.</p>
+    <BsForm
+      {{!-- @model={{this}}
+      @onSubmit={{action "submit"}}  --}}
+      as |form|>
+      <div class="mx-auto">
+        <Input
+          class="form-control"
+          placeholder="Please input your email adress"
+          autofocus="autofocus"
+          @type="email"
+          @value={{this.emailAdress}} />
+        <form.submitButton
+          class="mt-2"
+          disabled={{this.isDisabled}}
+          {{on 'click' this.saveInvitation}}
+        >Request invitation</form.submitButton>
+      </div>
+
+      {{#if this.responseMessage}}
+        <div class="alert alert-success mt-3">{{this.responseMessage}}</div>
+      {{/if}}
+    </BsForm>
+</div>

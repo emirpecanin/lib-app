@@ -1,0 +1,40 @@
+<div class="form-horizontal">
+  <div class="form-group has-feedback {{if @item.isValid 'has-success' }}">
+    <label for="name">
+      Name*
+      <Input 
+        @type="text"
+        @value={{@item.name}}
+        class="form-control"  
+        placeholder="The name of the library" />
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="adress">
+      Adress
+      <Input 
+        @type="text"
+        @value={{@item.address}}
+        class="form-control"  
+        placeholder="The adress of the library" />
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="phone">
+      Phone
+      <Input 
+        @type="text"
+        @value={{@item.phone}}
+        class="form-control"  
+        placeholder="The phone of the library" />
+    </label>
+    <div class="form-group">
+      <button 
+        class="btn btn-primary"
+        type="submit"
+        {{on 'click' @saveLibrary}}
+        disabled={{unless @item.isValid true}}
+        >{{@label}}</button>
+    </div>
+  </div>
+</div>
