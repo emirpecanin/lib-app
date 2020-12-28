@@ -1,78 +1,106 @@
-   {{!-- NAVBAR --}}
-<BsNavbar 
-    @type="dark"
-    @backgroundColor="dark"
-    as |navbar|>
-    <div class="container">
-      <div class="navbar-header">
-        <navbar.toggle />
-        <LinkTo class="navbar-brand" @route="index">Library App</LinkTo>
-      </div>
-      <navbar.content>
-        <navbar.nav 
-          class="w-100"
-          as |nav|>
-          <div class="d-flex flex-column flex-lg-row ">
-            <nav.item>
-              <nav.linkTo @route="index">Home</nav.linkTo>
-            </nav.item>
-            
-            <nav.item>
-              <nav.linkTo @route="libraries">Libraries</nav.linkTo>
-            </nav.item>
-
-            <nav.item>
-              <nav.linkTo @route="authors">Authors</nav.linkTo>
-            </nav.item>
-
-            <nav.item>
-              <nav.linkTo @route="books">Books</nav.linkTo>
-            </nav.item>
-
-          </div>
-          <div class="d-flex flex-column flex-lg-row ml-lg-auto ">
-            <nav.item>
-              <nav.linkTo @route="about">About</nav.linkTo>
-            </nav.item>
-            
-            <nav.item>
-              <nav.linkTo @route="contact">Contact</nav.linkTo>
-            </nav.item>
-            
-            <BsDropdown
-              as |dd|>
-
-              <dd.button>
-                Admin
-                <span class="caret"></span>
-              </dd.button>
-              
-              <dd.menu 
-              class="w-100"
-              as |menu|>
-                <menu.item>
-                  <menu.link-to @route="admin.invitations">Invitations</menu.link-to>
-                </menu.item>
-                <menu.item>
-                  <menu.link-to @route="admin.contacts">Contacts</menu.link-to>
-                </menu.item>
-                <menu.item>
-                  <menu.link-to @route="admin.seeder">Seeder</menu.link-to>
-                </menu.item>
-                
-              </dd.menu>
-            </BsDropdown>
-          </div>
-
-        </navbar.nav>
-
-
-      </navbar.content>
+<nav class="py-5 bg-gray-800"> 
+  <div class="container flex items-center navigation text-white text-md w-5/6  mx-auto ">
+    <div class="flex items-center nav-brand">
+      <LinkTo 
+        @route="index"> 
+        <FaIcon 
+        @icon="glasses" 
+        @prefix="fas"
+        @size="2x" 
+        class="mx-5 navigation-icon hover:opacity-30"/>
+      </LinkTo>
     </div>
-  </BsNavbar>
-<div class="container">
+    <div class="flex items-center nav-links ml-4 space-x-2 ">
+      <LinkTo 
+        @route="contact"
+        class="nav-link px-3 py-2 rounded hover:bg-black">
+        Contact
+      </LinkTo>
 
+      <LinkTo 
+        @route="about"
+        class="nav-link px-3 py-2 rounded hover:bg-black">
+        About  
+      </LinkTo>
+
+      <LinkTo 
+        @route="libraries.show"
+        class="nav-link px-3 py-2 rounded hover:bg-black">
+        Libraries  
+      </LinkTo>
+
+      <LinkTo 
+        @route="authors"
+        class="nav-link px-3 py-2 rounded hover:bg-black">
+        Authors  
+      </LinkTo>
+
+      <LinkTo 
+        @route="books"
+        class="nav-link px-3 py-2 rounded hover:bg-black">
+        Books  
+      </LinkTo>
+
+      
+    </div>
+
+    
+
+    <div class="flex xs:ml-none sm:ml-auto ">
+      
+      <div class="dropdown inline-block relative z-1">
+        <button type="button" class=" text-white py-2 px-4 rounded inline-flex items-center outline-none border-none" >
+          <span>Admin &dtrif;</span>
+        </button>
+        <ul class="dropdown-content absolute hidden text-gray-100 w-40 pt-1">
+          <li>
+            <LinkTo 
+              @route="admin.invitations"
+              class="nav-link px-4 py-2 rounded-t block bg-gray-800 border border-gray-500 ">
+              Invitations
+            </LinkTo>
+          </li>
+          <li>
+            <LinkTo 
+            @route="admin.messages"
+            class="nav-link bg-gray-800 hover:bg-gray-400 py-2 px-4 block border border-gray-500 "
+            >
+              Messages
+            </LinkTo>
+          </li>
+          
+          <li>
+            <LinkTo 
+              @route="admin.newbook"
+              class="nav-link px-4 py-2 rounded-b block bg-gray-800 border border-gray-500 ">
+              Add Book
+            </LinkTo>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</nav>
+
+<div class="container mx-auto">
   {{outlet}}
-
 </div>
 
+<div class="footer w-full space-x-2 text-white flex items-center justify-center bg-gray-800 h-24 fixed bottom-0 left-0">
+  <div class="block">&copy; 2020 Me, all rights reserved!</div>
+  <a href="http://twitter.com">
+    <FaIcon @icon="twitter-square" @prefix="fab" @size="2x"/>
+  </a>
+  <a href="http://linkedin.com">
+    <FaIcon @icon="linkedin" @prefix="fab" @size="2x"/>
+  </a>
+  <a href="http://github.com">
+    <FaIcon @icon="github-square" @prefix="fab" @size="2x"/>
+  </a>
+  <a href="http://facebook.com">
+    <FaIcon @icon="facebook-square" @prefix="fab" @size="2x"/>
+  </a>
+  
+
+</div>

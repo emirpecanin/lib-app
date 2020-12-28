@@ -1,0 +1,46 @@
+{{#if @model}}
+<div class="my-8">
+  <table class="min-w-full table-auto">
+    <thead class="justify-between">
+      <tr class="bg-gray-800">
+        <th class="px-4 py-2">
+          <span class="text-gray-300">Book</span>
+        </th>
+        <th class="px-4 py-2">
+          <span class="text-gray-300">ISDN</span>
+        </th>
+        <th class="px-4 py-2">
+          <span class="text-gray-300">Author</span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="bg-gray-200">
+
+      {{#each @model as |book|}}
+        <tr class="bg-white border-4 text-center border-gray-200">
+          <td class="text-sm">
+            {{book.name}}
+          </td>
+          <td class="text-xs">
+            {{book.ISDN}}
+          </td>
+          
+          <td class="text-xs">
+            {{book.author.name}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{else}}
+
+  <div class="bg-red-300 border-red-800 text-red-800 border-t-4 rounded  px-4 py-3 shadow-md my-2" role="alert">
+    <div class="flex align-items justify-center">
+      <div class="font-bold block text-center">No books in database</div>
+    </div>
+  </div>
+
+{{/if}}

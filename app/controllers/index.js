@@ -1,33 +1,33 @@
 import Controller from '@ember/controller';
-import { tracked } from '@glimmer/tracking'
-import { action } from '@ember/object'
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class IndexController extends Controller {
-  @tracked emailAdress = '';
-  @tracked responseMessage = '';
- 
-  title = 'Coming soon!';
-
-  get actualEmailAdress(){
-    return `Actual email adress is ${this.emailAdress}`;
-  }
+  @tracked email='';
+  @tracked alertMessage = '';
+  @tracked deleteMesage = '';
 
   get isValid(){
-    return this.emailAdress.match(/^.+@.+\..+$/);
+    return this.email.match(/^.+@.+\..+$/);
   }
-
+  
   get isDisabled(){
     return !this.isValid;
   }
 
-  @action
-  saveInvitation(){
-    const newInvitation = this.store.createRecord('invitation', { email: this.emailAdress });
-    newInvitation.save().then(res => { 
-      console.log(res);
-      this.responseMessage = `Thank you you have just saved ${this.emailAdress}`;
-      this.emailAdress = '';
-    });
-
+  get this() {
+    return this;
   }
+
+  @action
+  submitInvitation(){
+    this.store
+    .createRecord('invitation', { email: this.email })
+    .save()
+    .then(() => {
+      this.email = '';
+      this.alertMessage = `Your email adress ${this.email} has been successfully added to the invitation list`;
+    });
+  }
+
 }

@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background: #f3f4f6;
+}
+
+.dropdown:hover > .dropdown-content {
+	display: block;
+}
+
+.navigation-icon {
+  color: #6561ed;
+}
+
+.book-font {
+  font-family: 'Goudy Bookletter 1911', serif;
+}
+
+
+.nav-link:hover {
+  background: rgb(90, 114, 146);
+  transition: all 0.2s;
+}
+
+.nav-link.active {
+  background: rgb(22, 22, 22);
+} 
+
+input{
+  outline: none;
+}
+
+.disabled {
+  opacity: 40%;
+  pointer-events: none;
+}
+
+.icon::after{
+  content: '';
+  display: block;
+  position: absolute;
+  border-top: 23px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 12px solid #3182ce;
+  left: 100%;
+  top: 0;
+}
+
+.subnav.active {
+  background: rgb(90, 114, 146);
+  color: white;
+}

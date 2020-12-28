@@ -6,28 +6,33 @@ export default class ContactController extends Controller {
   @tracked email = '';
   @tracked message = '';
   @tracked alertMessage = '';
+ 
 
-  get isValid(){
-    return this.email.match(/^.+@.+\..+$/) && this.message.length >= 5;
+  get isValid() {
+    return this.email.match(/^.+@.+\..+$/) && this.message.length > 5;
   }
 
-  get isDisabled(){
+  get isDisabled() {
     return !this.isValid;
   }
 
+  get date(){
+    return Date.now();
+  }
+  
   @action
   sendMessage(){
-    let newMessage = this.store.createRecord('contact', {
+    this.store.createRecord('message', {
       email: this.email,
+      dateSent: this.date,
       message: this.message,
-    });
-
-    newMessage
-      .save()
-      .then(res => {
-        this.alertMessage = `We got your message and we'll get in touch soon.` 
-        this.message = '';
-        this.email = '';
-      });
+    })
+    .save()
+    .then(() => {
+      this.email = '';
+      this.message ='';
+      this.alertMessage = 'Your email has been succcessfully sent.';
+    })
   }
+
 }

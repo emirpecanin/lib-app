@@ -1,28 +1,44 @@
-<div class="jumbotron text-center mt-4">
-    <h1 class="display-4">{{this.title}}</h1>
-    <br/><br/>
+<div class="pt-16 mt-8 bg-blue-100 text-center h-auto">
+  <div class="divider divide-y divide-indigo-200 space-y-8 w-2/3 mx-auto">
+    <div>
+      <h1 class="text-6xl book-font">
+        <FaIcon 
+          @icon="glasses" 
+          @prefix="fas" 
+        />
+        Library finder app</h1>
+      <div class="text-lg">Powered by 
+        <em class="book-font">Ember</em> & <em class="book-font">TailwindCSS</em></div>
+      <div class="text-xs"> Get your registration number by inputting your email below.</div>
+    </div>
 
-    <p>Don't miss out launch date, input your email below.</p>
-    <BsForm
-      {{!-- @model={{this}}
-      @onSubmit={{action "submit"}}  --}}
-      as |form|>
-      <div class="mx-auto">
-        <Input
-          class="form-control"
+    <form>
+      <div class="mt-8 pb-16">
+        <Input 
+          @id="email_address" 
+          @value={{this.email}}
+          name="email_address" 
+          type="text" 
+          autocomplete="email" 
           placeholder="Please input your email adress"
-          autofocus="autofocus"
-          @type="email"
-          @value={{this.emailAdress}} />
-        <form.submitButton
-          class="mt-2"
+          class="mb-6 pl-2 h-8 mx-auto 
+            focus:ring-4 
+            block w-2/3 shadow-sm text-lg font-mono border-gray-300 rounded-md text-center"/>
+        <button 
+          type="button"
           disabled={{this.isDisabled}}
-          {{on 'click' this.saveInvitation}}
-        >Request invitation</form.submitButton>
+          class="{{if this.isDisabled 'disabled'}} inline-flex justify-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 "
+          {{on 'click' this.submitInvitation}}
+          >Submit</button>
       </div>
+    </form>
+  </div>
 
-      {{#if this.responseMessage}}
-        <div class="alert alert-success mt-3">{{this.responseMessage}}</div>
-      {{/if}}
-    </BsForm>
+    {{#if this.alertMessage}}
+      <div class="bg-green-300 border-green-800 text-green-800 border-t-4 rounded  px-4 py-3 shadow-md my-2" role="alert">
+        <div class="flex align-items justify-center">
+          <div class="font-bold block text-center">{{this.alertMessage}}</div>
+        </div>
+      </div>
+    {{/if}}
 </div>

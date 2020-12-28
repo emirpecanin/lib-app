@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'lib-app',
+    modulePrefix: 'emb-lib-finder',
     environment,
     rootURL: '/',
     locationType: 'auto',
@@ -16,30 +16,31 @@ module.exports = function(environment) {
         Date: false
       }
     },
-    
+
+    APP: {
+      // Here you can pass flags/options to your application instance
+      // when it is created
+    }, 
+    // ...
     firebase: {
-      apiKey: "AIzaSyCDGuhDI8EdiDJdwEPGkYtI5AJS0H3AMHA",
-      authDomain: "ember-lib-app-d6a92.firebaseapp.com",
-      databaseURL: "https://ember-lib-app-d6a92-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "ember-lib-app-d6a92",
-      storageBucket: "ember-lib-app-d6a92.appspot.com",
-      messagingSenderId: "594248948924",
-      appId: "1:594248948924:web:dd2c20d7b1cddc6020c4b9",
-      measurementId: "G-BTH0CSTH0K"
+      apiKey: "AIzaSyDo5zUuxkOoghdggYfN0gUeLgjXwspV7GI",
+      authDomain: "libraryfinder-f16fd.firebaseapp.com",
+      databaseURL: "https://libraryfinder-f16fd-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "libraryfinder-f16fd",
+      storageBucket: "libraryfinder-f16fd.appspot.com",
+      messagingSenderId: "792441439008",
+      appId: "1:792441439008:web:c2d60b0f889bc9b291cd45",
+      measurementId: "G-WQ73RQX9MB"
     },
-  
-  
+
+
     // if using ember-cli-content-security-policy
     contentSecurityPolicy: {
       'script-src': "'self' 'unsafe-eval' apis.google.com",
       'frame-src': "'self' https://*.firebaseapp.com",
       'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com"
     },
-  
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
-    }
+
   };
 
   if (environment === 'development') {

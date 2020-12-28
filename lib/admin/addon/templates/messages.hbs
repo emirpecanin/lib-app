@@ -1,0 +1,56 @@
+{{#if @model}}
+<div class="my-8">
+  <table class="min-w-full table-auto">
+    <thead class="justify-between">
+      <tr class="bg-gray-800">
+        <th class="px-4 py-2">
+          <span class="text-gray-300">ID</span>
+        </th>
+        <th class="px-4 py-2">
+          <span class="text-gray-300">Email</span>
+        </th>
+        <th class="px-4 py-2">
+          <span class="text-gray-300">Time Stamp</span>
+        </th>
+        <th class="px-16 py-2">
+          <span class="text-gray-300">Message</span>
+        </th>
+
+      </tr>
+    </thead>
+
+    <tbody class="bg-gray-200">
+
+      {{#each @model as |message|}}
+        <tr class="bg-white border-4 text-center border-gray-200">
+          <td class="text-xs">
+            {{message.id}}
+          </td>
+          <td class="text-xs p-4">
+            {{message.email}}
+          </td>
+          <td class="text-xs"> 
+            {{message.dateSent}}
+          </td>
+          <td class="text-xs overflow-y-auto ">
+            {{message.message}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <button 
+    {{on 'click' this.purgeMessages}}
+    type="button" 
+    class="w-2/5 float-right mt-6 bg-red-600 hover:bg-red-500 text-white font-semibold p-3"
+  >Purge messages</button>
+</div>
+{{else}}
+
+  <div class="bg-red-300 border-red-800 text-red-800 border-t-4 rounded  px-4 py-3 shadow-md my-2" role="alert">
+    <div class="flex align-items justify-center">
+      <div class="font-bold block text-center">No records in database</div>
+    </div>
+  </div>
+
+{{/if}}
