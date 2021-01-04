@@ -14,4 +14,5 @@ Router.map(function() {
   this.mount('books', { path: '/books' });
   this.mount('authors', { path: '/authors' });
   this.mount('libraries', { path: '/libraries'});
+  this.mount('shop', { path: '/shop'});
 });

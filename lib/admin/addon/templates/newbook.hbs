@@ -1,7 +1,6 @@
 <div class="flex justify-center">
   <form class="form bg-white p-6 my-4 relative w-1/3 sm:w-2/4">  
     <h3 class="text-2xl text-gray-900 font-semibold">New author?</h3>
-    <p class="text-gray-600"> Please input requested information </p>
 
     <Input 
       @value={{this.authorName}}
@@ -24,11 +23,10 @@
 
 
 <div class="flex justify-center">
-  <form class="form bg-white p-6 my-10 relative w-1/3 sm:w-2/4 book-form"
+  <form class="form bg-white p-6 my-2 relative w-1/3 sm:w-2/4 book-form"
     {{on 'change' this.getSelection}}
   >  
     <h3 class="text-2xl text-gray-900 font-semibold">Add new book</h3>
-    <p class="text-gray-600"> Please input requested information </p>
 
  {{#if this.canAddBook}}
 
@@ -40,32 +38,56 @@
       {{/each}}
     </select>
 
-    <select name="author" class="border p-2 w-full bg-white" > 
+    <select name="author" class="border p-2 w-full bg-white mb-4" > 
       <option disabled selected default>Select Author</option>
       {{#each this.authors as |author|}}
         <option value={{author.id}}>{{author.name}}</option>
       {{/each}}
     </select>
-    
-    <Input 
-      @value={{this.bookName}}
-      type="text" 
-      placeholder="Name of the book" 
-      class="border p-2 w-full mt-3" 
-    />
 
-    <Input 
-      @value={{this.bookIsdn}}
-      type="text" 
-      placeholder="ISDN number of the book" 
-      class="border p-2 w-full mt-3" 
-    />
+    <label for="book-value">
+      Name of the book
+      <Input 
+        @value={{this.bookName}}
+        type="text" 
+        class="border p-2 w-full mb-4" 
+      />
+    </label>
+
+    <label for="book-value">
+      ISDN number of the book
+      <Input 
+        @value={{this.bookIsdn}}
+        type="text" 
+        class="border p-2 w-full mb-4" 
+      />
+    </label>
+
+    <label for="book-value">
+      Price of the book:
+      <Input 
+            @value={{this.bookPrice}}
+            @id="book-value"
+            type="number" 
+            class="border p-2 w-full mb-4" 
+          />
+    </label>   
+    
+    <label for="book-amount">
+      How many books to add:
+      <Input 
+            @value={{this.bookAmount}}
+            @id="book-amount"
+            type="number" 
+            class="border p-2 w-full" 
+          />
+    </label>
 
     <button 
       disabled={{this.canSaveBook}}
       {{on 'click' this.saveBook}}
       type="button" 
-      class="{{if this.canSaveBook 'disabled'}} w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3"
+      class="{{if this.canSaveBook 'disabled'}} w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3 book-price"
     >
       Add new book
     </button> 

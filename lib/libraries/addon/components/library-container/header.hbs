@@ -1,0 +1,12 @@
+
+<div class="flex p-2 shadow-sm items-center bg-gray-50"> 
+  <span class="block text-gray-400 text-sm">
+    Name:
+  </span>
+  <div class="text-center mx-auto font-bold">
+    {{@name}}
+  </div>
+  {{#if @length}}
+    <div class="block w-8 h-8 bg-red-800 rounded-full text-white text-sm leading-8 font-bold text-center">{{@length}}</div>
+  {{/if}}
+</div>

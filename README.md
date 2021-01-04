@@ -1,22 +1,13 @@
 # emb-lib-finder
 
-Library tracker demo created in Ember.js. App allows you to add libraries as well as books. 
-
-Features: 
-* Uses Firebase with Ember-data as persistence layer.
-* Uses TailwindCSS for styling.
-* Pages are separated using ember-engines (lazy loaded).
-
-Possible updates:
-* Auth for administrator.
-
+This README outlines the details of collaborating on this Ember application.
+A short introduction of this app could easily go here.
 
 ## Live preview
 
 App can be found here:
 
 * [LibApp](https://libraryfinder-f16fd.web.app/)
-
 
 ## Prerequisites
 
@@ -39,6 +30,9 @@ You will need the following things properly installed on your computer.
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
+### Code Generators
+
+Make use of the many generators for code, try `ember help generate` for more details
 
 ### Running Tests
 
@@ -56,6 +50,9 @@ You will need the following things properly installed on your computer.
 * `ember build` (development)
 * `ember build --environment production` (production)
 
+### Deploying
+
+Specify what it takes to deploy your app.
 
 ## Further Reading / Useful Links
 

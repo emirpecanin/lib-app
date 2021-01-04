@@ -1,0 +1,29 @@
+<nav class="py-5 bg-gray-800"> 
+  <div class="container flex items-center navigation text-white text-md w-5/6  mx-auto ">
+    {{!-- Brand --}}
+    <div class="flex items-center nav-brand">
+      <MainNavigation::Link 
+        @route={{'index'}}>
+          <FaIcon @icon="glasses" @prefix="fas" @size="2x" class="mx-5 navigation-icon hover:opacity-30"/>      
+      </MainNavigation::Link>
+    </div>
+
+    {{!-- Main navigation --}}
+    <div class="flex items-center nav-links ml-4 space-x-2 ">
+      {{#each this.navLinks as |link|}}
+        <MainNavigation::NavLink
+          @route={{link.linkRoute}}>
+          {{link.linkName}}
+        </MainNavigation::NavLink>
+      {{/each}}
+    </div>
+
+    
+    {{!-- Admin dropdown --}}
+    <div class="flex xs:ml-none sm:ml-auto ">
+      <MainNavigation::DropdownLink @links={{this.dropDownLinks}}/>
+    </div>
+  </div>
+</nav>
+
+

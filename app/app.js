@@ -23,12 +23,17 @@ export default class App extends Application {
       },
       books: {
         dependencies: {
-          services: [ 'store' ]
+          services: [ 'store', 'shop' ]
         }
       },
       admin: {
         dependencies: {
           services: [ 'store' ]
+        }
+      }, 
+      shop: {
+        dependencies: {
+          services: ['store', 'shop']
         }
       }
     }

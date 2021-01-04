@@ -21,6 +21,8 @@
 
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/emb-lib-finder.js"></script>
+    
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 
@@ -34,6 +36,7 @@
       var firebaseConfig = {
         apiKey: "AIzaSyDo5zUuxkOoghdggYfN0gUeLgjXwspV7GI",
         authDomain: "libraryfinder-f16fd.firebaseapp.com",
+        databaseURL: "https://libraryfinder-f16fd-default-rtdb.europe-west1.firebasedatabase.app",
         projectId: "libraryfinder-f16fd",
         storageBucket: "libraryfinder-f16fd.appspot.com",
         messagingSenderId: "792441439008",
@@ -44,6 +47,7 @@
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
     </script>
+
     {{content-for "body-footer"}}
   </body>
 </html>

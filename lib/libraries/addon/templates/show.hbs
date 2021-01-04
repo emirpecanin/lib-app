@@ -2,74 +2,13 @@
 <div class="container pt-4 grid grid-cols-3 gap-4">
 
   {{#each @model as |library|}} 
-
-    <div class="flex flex-col bg-white col-span-1 rounded-t shadow-md">
-
-      <div class="flex p-2 shadow-sm items-center bg-gray-50"> 
-        <span class="block text-gray-400 text-sm">
-          Name:
-        </span>
-        <div class="text-center mx-auto font-bold">
-          {{library.name}}
-        </div>
-        {{#if library.books.length}}
-          <div class="block w-8 h-8 bg-red-800 rounded-full text-white text-sm leading-8 font-bold text-center">{{library.books.length}}</div>
-        {{/if}}
-      </div>
-
-      <div class="flex flex-col shadow-md flex-1">
-       
-        <div class="flex w-full space-x-4 p-2">
-          <span class="text-gray-400 text-sm">Adress</span>
-          <span>{{library.address}}</span>
-        </div>
-        <div class="flex w-full space-x-4 p-2">
-          <span class="text-gray-400 text-sm">Phone</span>
-          <span>{{library.phoneNumber}}</span>
-        </div>
-        <div class="flex w-full space-x-4 p-2">
-          <span class="text-gray-400 text-sm">Additional info</span>
-          <span>{{library.additional}}</span>
-        </div>
-      </div>
-
-      <div class="flex  bg-gray-50 px-4 shadow-md ">
-        {{#if library.books.length}}
-          <LinkTo 
-            @route="has"
-            @model={{library}}
-            class="px-4 py-2 my-2 text-white rounded bg-green-600 hover:bg-green-400"
-            type="button">
-            Books
-          </LinkTo>
-        {{/if}}
-
-        <LinkTo 
-          @route="edit"
-          @model={{library}}
-          class="px-4 py-2 my-2 ml-4 text-white rounded bg-blue-600 hover:bg-blue-400"
-          type="button">
-          Edit Library
-        </LinkTo>
-
-        <button class="ml-auto px-4 py-2 my-2 text-white rounded bg-red-600 hover:bg-red-400"
-          {{on 'click' (fn this.deleteLibrary library)}}
-          type="button">
-          Delete
-        </button>
-      </div>
-    </div>
-
+    <LibraryContainer @library={{library}} />
   {{/each}}
 
 </div>
 
 {{else}}
-
-  <div class="bg-red-300 border-red-800 text-red-800 border-t-4 rounded  px-4 py-3 shadow-md my-2" role="alert">
-    <div class="flex align-items justify-center">
-      <div class="font-bold block text-center">No libraries in database</div>
-    </div>
-  </div>
-
+  <Alert @color={{'red'}}>
+    No libraries in database
+  </Alert>
 {{/if}}

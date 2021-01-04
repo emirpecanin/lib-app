@@ -1,4 +1,12 @@
-{{#if @model}}
+<form class="w-full p-4 my-4 rounded-md bg-gray-800">
+  <Input 
+  class="px-2 leading-8 w-full"
+  type="text" 
+  @value={{this.bookName}}
+  placeholder="Type in name to find your book"/>
+</form>
+
+{{#if this.books}}
 <div class="my-8">
   <table class="min-w-full table-auto">
     <thead class="justify-between">
@@ -7,27 +15,51 @@
           <span class="text-gray-300">Book</span>
         </th>
         <th class="px-4 py-2">
-          <span class="text-gray-300">ISDN</span>
+          <span class="text-gray-300">Author</span>
         </th>
         <th class="px-4 py-2">
-          <span class="text-gray-300">Author</span>
+          <span class="text-gray-300">Available at</span>
+        </th>
+        <th class="px-4 py-2">
+          <span class="text-gray-300">Amount available</span>
+        </th>
+        <th class="px-4 py-2">
+          <span class="text-gray-300">Add to cart</span>
         </th>
       </tr>
     </thead>
 
     <tbody class="bg-gray-200">
-
-      {{#each @model as |book|}}
-        <tr class="bg-white border-4 text-center border-gray-200">
+      {{#each this.books as |book|}}
+        <tr class="bg-white border-4 text-center border-gray-200 hover:bg-gray-100">
           <td class="text-sm">
             {{book.name}}
-          </td>
-          <td class="text-xs">
-            {{book.ISDN}}
           </td>
           
           <td class="text-xs">
             {{book.author.name}}
+          </td>
+          
+          <td class="text-xs">
+            {{book.library.name}}
+          </td>
+          
+          <td class="text-xs">
+            {{book.amount}}
+          </td>
+        
+          
+          <td >
+            <div class="flex items-center justify-center">
+              <button 
+                disabled={{book.notAvailable}}
+                {{on 'click' (fn this.buyBook book)}}
+                class="{{if book.notAvailable 'bg-gray-300 pointer-events-none' 'bg-red-700 hover:bg-red-500'}}  z-0 px-2 m-4 text-white rounded-md"
+                type="button">
+                Add
+              </button>
+              <span class="inline-block z-50 bg-green-400 p-3 text-white rounded {{if book.addingBook ' absolute transition duration-50 block opacity-100'  'transition duration-50 opacity-0 hidden'}}">Added</span>  
+            </div>
           </td>
         </tr>
       {{/each}}

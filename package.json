@@ -74,7 +74,8 @@
       "lib/admin",
       "lib/authors",
       "lib/books",
-      "lib/libraries"
+      "lib/libraries",
+      "lib/shop"
     ]
   }
 }
