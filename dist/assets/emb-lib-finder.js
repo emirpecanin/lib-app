@@ -110,7 +110,7 @@
     }
   });
 });
-;define("emb-lib-finder/components/alert", ["exports", "libraries/components/alert.js"], function (_exports, _alert) {
+;define("emb-lib-finder/components/alert", ["exports", "shared-components/components/alert"], function (_exports, _alert) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -120,6 +120,19 @@
     enumerable: true,
     get: function () {
       return _alert.default;
+    }
+  });
+});
+;define("emb-lib-finder/components/book-form", ["exports", "admin/components/book-form"], function (_exports, _bookForm) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _bookForm.default;
     }
   });
 });
@@ -310,6 +323,19 @@
   _exports.default = FooterComponent;
 
   Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, FooterComponent);
+});
+;define("emb-lib-finder/components/form", ["exports", "shared-components/components/form"], function (_exports, _form) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _form.default;
+    }
+  });
 });
 ;define("emb-lib-finder/components/hero-block/index", ["exports", "@glimmer/component"], function (_exports, _component) {
   "use strict";
@@ -669,6 +695,32 @@
 
   _exports.default = _default;
 });
+;define("emb-lib-finder/components/table", ["exports", "shared-components/components/table"], function (_exports, _table) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _table.default;
+    }
+  });
+});
+;define("emb-lib-finder/components/user-info-form", ["exports", "shop/components/user-info-form"], function (_exports, _userInfoForm) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _userInfoForm.default;
+    }
+  });
+});
 ;define("emb-lib-finder/config/asset-manifest", ["exports", "require", "emb-lib-finder/config/environment"], function (_exports, _require, _environment) {
   "use strict";
 
@@ -767,6 +819,129 @@
       return _formatter.formatter;
     }
   });
+});
+;define("emb-lib-finder/helpers/in-repo-addon", [], function () {
+  'use strict';
+
+  const path = require("path");
+
+  const fs = require("fs-extra");
+
+  const fixturify = require("fixturify");
+
+  class InRepoAddon {
+    static generate(app, name) {
+      let args = ['generate', 'in-repo-addon', name];
+      return app.runEmberCommand.apply(app, args).then(() => {
+        let addon = new InRepoAddon(app, name);
+        addon.editPackageJSON(pkg => pkg.dependencies = {
+          'ember-cli-htmlbars': '*'
+        });
+        return addon;
+      });
+    }
+
+    constructor(app, name) {
+      this.name = name;
+      this.app = app;
+      this.path = path.join(app.path, 'lib', name);
+    }
+
+    editPackageJSON(editor) {
+      let packageJSONPath = path.join(this.path, 'package.json');
+      let pkg = fs.readJsonSync(packageJSONPath);
+      editor(pkg);
+      fs.writeJsonSync(packageJSONPath, pkg);
+    }
+
+    writeFixture(fixture) {
+      fixturify.writeSync(this.path, fixture);
+    }
+
+    nest(addon) {
+      this.editPackageJSON(pkg => {
+        pkg['ember-addon'] = pkg['ember-addon'] || {};
+        pkg['ember-addon'].paths = pkg['ember-addon'].paths || [];
+        pkg['ember-addon'].paths.push(`../${addon.name}`);
+      });
+    }
+
+    generateNestedAddon(name) {
+      // Generate another in-repo-addon at the app level...
+      let args = Array.prototype.slice.call(arguments);
+      args.unshift(this.app);
+      return InRepoAddon.generate.apply(null, args).then(addon => {
+        // Remove the in-repo-addon from the app...
+        this.app.editPackageJSON(pkg => {
+          pkg['ember-addon'].paths = pkg['ember-addon'].paths.filter(path => path !== `lib/${name}`);
+        }); // Add the in-repo-addon to this engine.
+
+        this.editPackageJSON(pkg => {
+          pkg['ember-addon'] = pkg['ember-addon'] || {};
+          pkg['ember-addon'].paths = pkg['ember-addon'].paths || [];
+          pkg['ember-addon'].paths.push(`../${name}`);
+        });
+        return addon;
+      });
+    }
+
+  }
+
+  module.exports = InRepoAddon;
+});
+;define("emb-lib-finder/helpers/in-repo-engine", [], function () {
+  'use strict';
+
+  const InRepoAddon = require("emb-lib-finder/helpers/in-repo-addon");
+
+  class InRepoEngine extends InRepoAddon {
+    static generate(app, name, options) {
+      let args = ['generate', 'in-repo-engine', name];
+
+      if (typeof options.lazy !== 'undefined') {
+        args.push('--lazy', options.lazy);
+      }
+
+      if (typeof options.type !== 'undefined') {
+        args.push('--type', options.type);
+      }
+
+      return app.runEmberCommand.apply(app, args).then(() => {
+        let engine = new InRepoEngine(app, name); // Set up a simple default CSS file
+
+        engine.writeFixture({
+          addon: {
+            styles: {
+              'app.css': `/* ${name}.css */`
+            }
+          }
+        });
+        return engine;
+      });
+    }
+
+    generateNestedEngine(name) {
+      // Generate another in-repo-engine at the app level...
+      let args = Array.prototype.slice.call(arguments);
+      args.unshift(this.app);
+      return InRepoEngine.generate.apply(null, args).then(engine => {
+        // Remove the in-repo-engine from the app...
+        this.app.editPackageJSON(pkg => {
+          pkg['ember-addon'].paths = pkg['ember-addon'].paths.filter(path => path !== `lib/${name}`);
+        }); // Add the in-repo-engine to this engine.
+
+        this.editPackageJSON(pkg => {
+          pkg['ember-addon'] = pkg['ember-addon'] || {};
+          pkg['ember-addon'].paths = pkg['ember-addon'].paths || [];
+          pkg['ember-addon'].paths.push(`../${name}`);
+        });
+        return engine;
+      });
+    }
+
+  }
+
+  module.exports = InRepoEngine;
 });
 ;define("emb-lib-finder/helpers/pluralize", ["exports", "ember-inflector/lib/helpers/pluralize"], function (_exports, _pluralize) {
   "use strict";
@@ -1592,8 +1767,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "Dzt2zQzN",
-    "block": "{\"symbols\":[],\"statements\":[[8,\"main-navigation\",[],[[],[]],null],[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"container mx-auto\"],[12],[2,\"\\n  \"],[1,[30,[36,1],[[30,[36,0],null,null]],null]],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[8,\"footer\",[],[[],[]],null]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
+    "id": "J0Dij/ve",
+    "block": "{\"symbols\":[],\"statements\":[[8,\"main-navigation\",[],[[],[]],null],[2,\"\\n\"],[10,\"div\"],[14,0,\"container mx-auto\"],[12],[2,\"\\n  \"],[1,[30,[36,1],[[30,[36,0],null,null]],null]],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[8,\"footer\",[],[[],[]],null]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
     "meta": {
       "moduleName": "emb-lib-finder/templates/application.hbs"
     }

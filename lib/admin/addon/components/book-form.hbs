@@ -1,0 +1,72 @@
+<form 
+  class="form bg-white p-6 my-2 relative w-1/3 sm:w-2/4 book-form"
+  {{on 'change' (fn @getSelection)}}
+>  
+  <h3 class="text-2xl text-gray-900 font-semibold">Add new book</h3>
+
+  {{#if @canAddBook}}
+    <select name="library" class="border p-2 my-4 w-full bg-white" > 
+      <option disabled selected default>Select Library</option>
+      {{#each @libraryRes as |library|}}
+        <option value={{library.id}}>{{library.name}}</option>
+      {{/each}}
+    </select>
+
+    <select name="author" class="border p-2 w-full bg-white mb-4" > 
+      <option disabled selected default>Select Author</option>
+      {{#each @authorRes as |author|}}
+        <option value={{author.id}}>{{author.name}}</option>
+      {{/each}}
+    </select>
+
+    <label for="book-value">
+      Name of the book
+      <Input 
+        @value={{@bookName}}
+        type="text" 
+        class="border p-2 w-full mb-4" 
+      />
+    </label>
+
+    <label for="book-value">
+      ISDN number of the book
+      <Input 
+        @value={{@bookIsdn}}
+        type="text" 
+        class="border p-2 w-full mb-4" 
+      />
+    </label>
+
+    <label for="book-value">
+      Price of the book:
+      <Input 
+            @value={{@bookPrice}}
+            @id="book-value"
+            type="number" 
+            class="border p-2 w-full mb-4" 
+          />
+    </label>   
+    
+    <label for="book-amount">
+      How many books to add:
+      <Input 
+            @value={{@bookAmount}}
+            @id="book-amount"
+            type="number" 
+            class="border p-2 w-full" 
+          />
+    </label>
+
+    <button 
+      disabled={{@canSaveBook}}
+      {{on 'click' (fn @saveBook)}}
+      type="button" 
+      class="{{if @canSaveBook 'disabled'}} w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3 book-price"
+    >
+      Add new book
+    </button> 
+  {{else}}
+    <Alert @color="red">Please add at least one library and at least one author</Alert>
+  {{/if}}
+
+</form>

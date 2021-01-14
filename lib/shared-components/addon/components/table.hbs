@@ -1,0 +1,16 @@
+<div class="my-8">
+  <table class="min-w-full table-auto">
+    <thead class="justify-between">
+      <tr class="bg-gray-800">
+        {{#each @header as |headerTitle|}}
+          <th class="px-16 py-2">
+            <span class="text-gray-300">{{headerTitle}}</span>
+          </th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody class="bg-gray-200">
+      {{yield}}      
+    </tbody>
+  </table>
+</div>

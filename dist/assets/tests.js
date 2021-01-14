@@ -65,6 +65,27 @@ define("emb-lib-finder/tests/acceptance/visiting-about-page-test", ["qunit", "@e
     });
   });
 });
+define("emb-lib-finder/tests/integration/components/alert-test", ["qunit", "@ember/test-helpers", "ember-qunit"], function (_qunit, _testHelpers, _emberQunit) {
+  "use strict";
+
+  (0, _qunit.module)('Integration | Component | alert', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)('it renders', async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Alert @color="red"> Alert message </Alert>
+      */
+      {
+        "id": "LezIc+Mg",
+        "block": "{\"symbols\":[],\"statements\":[[8,\"alert\",[],[[\"@color\"],[\"red\"]],[[\"default\"],[{\"statements\":[[2,\" Alert message \"]],\"parameters\":[]}]]]],\"hasEval\":false,\"upvars\":[]}",
+        "meta": {}
+      }));
+      assert.equal(this.element.textContent.trim(), 'Alert message');
+      assert.dom('div[role="alert"]').exists();
+      assert.dom('div[role="alert"]').hasClass('bg-red-300');
+    });
+  });
+});
 define("emb-lib-finder/tests/integration/components/contact-form-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
   "use strict";
 
@@ -115,6 +136,42 @@ define("emb-lib-finder/tests/integration/components/footer-test", ["qunit", "emb
       assert.deepEqual(this.element.querySelector('.github-icon').getAttribute('href'), 'http://github.com');
       assert.dom(this.element.querySelector('a.facebook-icon')).exists();
       assert.deepEqual(this.element.querySelector('.facebook-icon').getAttribute('href'), 'http://facebook.com');
+    });
+  });
+});
+define("emb-lib-finder/tests/integration/components/form-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
+  "use strict";
+
+  (0, _qunit.module)('Integration | Component | form', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Form />
+      */
+      {
+        "id": "OIeNJeGq",
+        "block": "{\"symbols\":[],\"statements\":[[8,\"form\",[],[[],[]],null]],\"hasEval\":false,\"upvars\":[]}",
+        "meta": {}
+      }));
+      assert.equal(this.element.textContent.trim(), ''); // Template block usage:
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+            <Form>
+              template block text
+            </Form>
+          
+      */
+      {
+        "id": "SS6JJfvO",
+        "block": "{\"symbols\":[],\"statements\":[[2,\"\\n      \"],[8,\"form\",[],[[],[]],[[\"default\"],[{\"statements\":[[2,\"\\n        template block text\\n      \"]],\"parameters\":[]}]]],[2,\"\\n    \"]],\"hasEval\":false,\"upvars\":[]}",
+        "meta": {}
+      }));
+      assert.equal(this.element.textContent.trim(), 'template block text');
     });
   });
 });
@@ -173,6 +230,80 @@ define("emb-lib-finder/tests/integration/components/main-navigation-test", ["qun
         "meta": {}
       }));
       assert.equal(this.element.textContent.trim().replace(/\s\s+/g, ' '), 'Contact About Libraries Authors Buy books Cart Admin ▾ Invitations Messages Invoices Add Book');
+    });
+  });
+});
+define("emb-lib-finder/tests/integration/components/table-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
+  "use strict";
+
+  (0, _qunit.module)('Integration | Component | table', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Table />
+      */
+      {
+        "id": "MHFrzCCV",
+        "block": "{\"symbols\":[],\"statements\":[[8,\"table\",[],[[],[]],null]],\"hasEval\":false,\"upvars\":[]}",
+        "meta": {}
+      }));
+      assert.equal(this.element.textContent.trim(), ''); // Template block usage:
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+            <Table>
+              template block text
+            </Table>
+          
+      */
+      {
+        "id": "EaLbooPA",
+        "block": "{\"symbols\":[],\"statements\":[[2,\"\\n      \"],[8,\"table\",[],[[],[]],[[\"default\"],[{\"statements\":[[2,\"\\n        template block text\\n      \"]],\"parameters\":[]}]]],[2,\"\\n    \"]],\"hasEval\":false,\"upvars\":[]}",
+        "meta": {}
+      }));
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
+define("emb-lib-finder/tests/integration/components/user-info-form-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
+  "use strict";
+
+  (0, _qunit.module)('Integration | Component | user-info-form', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)('Order form is rendered and button is not disabled after form is filled', async function (assert) {
+      this.set('firstName', 'name');
+      this.set('lastName', 'lastName');
+      this.set('email', 'email@adress.com');
+      this.set('street', 'test str');
+      this.set('town', 'test town');
+      this.set('orderItems', () => {
+        'Items ordered';
+      });
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+              <UserInfoForm 
+              @firstName={{this.firstName}}
+              @lastName={{this.lastName}}
+              @email={{this.email}}
+              @street={{this.street}}
+              @town={{this.town}}
+              @isDisabled={{this.isDisabled}}
+              @orderItems={{this.orderItems}}
+            />
+          
+      */
+      {
+        "id": "R2QgIRIx",
+        "block": "{\"symbols\":[],\"statements\":[[2,\"\\n        \"],[8,\"user-info-form\",[],[[\"@firstName\",\"@lastName\",\"@email\",\"@street\",\"@town\",\"@isDisabled\",\"@orderItems\"],[[32,0,[\"firstName\"]],[32,0,[\"lastName\"]],[32,0,[\"email\"]],[32,0,[\"street\"]],[32,0,[\"town\"]],[32,0,[\"isDisabled\"]],[32,0,[\"orderItems\"]]]],null],[2,\"\\n    \"]],\"hasEval\":false,\"upvars\":[]}",
+        "meta": {}
+      }));
+      assert.equal(this.element.textContent.trim().replace(/\s\s+/g, ' '), 'Thank you for your purchase, please fill in your information to continue Firstname Lastname E-mail Street Town Order');
+      assert.dom('.order-button').isNotDisabled();
     });
   });
 });

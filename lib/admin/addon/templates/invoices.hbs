@@ -1,38 +1,20 @@
 {{#if @model}}
-<div class="my-8">
-  <table class="min-w-full table-auto">
-    <thead class="justify-between">
-      <tr class="bg-gray-800">
-        <th class="px-16 py-2">
-          <span class="text-gray-300">Purchase detail</span>
-        </th>
-        <th class="px-16 py-2">
-          <span class="text-gray-300">User detail</span>
-        </th>
+
+  <Table @header={{array "Purchase detail" "User detail"}}>
+    {{#each @model as |invoice|}}
+      <tr class="bg-white border-4 text-center border-gray-200">
+          <td>
+              {{{formatter invoice.items}}}
+          </td>
+          <td>
+              {{{formatter invoice.userInfo}}}
+          </td>
       </tr>
-    </thead>
-
-    <tbody class="bg-gray-200">
-
-      {{#each @model as |invoice|}}
-        <tr class="bg-white border-4 text-center border-gray-200">
-            <td>
-                {{{formatter invoice.items}}}
-            </td>
-            <td>
-                {{{formatter invoice.userInfo}}}
-            </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+    {{/each}}
+  </Table>
+  
 {{else}}
 
-  <div class="bg-red-300 border-red-800 text-red-800 border-t-4 rounded  px-4 py-3 shadow-md my-2" role="alert">
-    <div class="flex align-items justify-center">
-      <div class="font-bold block text-center">No records in database</div>
-    </div>
-  </div>
+  <Alert @color="red">No records in database</Alert>
 
 {{/if}}

@@ -1,18 +1,8 @@
-<div class="bg-white mt-8">
-  <table class="table-auto border-collapse w-full">
-    <thead>
-      <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
-        <th class="px-4 py-2 bg-gray-200 " style="background-color:#f8f8f8">Title</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">ISDN</th>
-      </tr>
-    </thead>
-    <tbody class="text-sm font-normal text-gray-700">
-      {{#each @model.books as |book|}}
-        <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
-          <td class="px-4 py-4">{{book.name}}</td>
-          <td class="px-4 py-4">{{book.ISDN}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+<Table @header={{array "Title" "ISDN"}}>
+  {{#each @model.books as |book|}}
+    <tr class="bg-white border-4 text-center border-gray-200">
+      <td>{{book.name}}</td>
+      <td>{{book.ISDN}}</td>
+    </tr>
+  {{/each}}
+</Table>
